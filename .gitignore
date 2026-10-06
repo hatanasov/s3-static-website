@@ -1,0 +1,94 @@
+# =========================
+# Terraform
+# =========================
+
+# Local .terraform directories
+**/.terraform/*
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Terraform plan files
+*.tfplan
+*.plan
+
+# Terraform CLI configuration
+.terraformrc
+terraform.rc
+
+# Terraform lock file
+.terraform.lock.hcl
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# =========================
+# Kiro
+# =========================
+
+.kiro/
+
+# =========================
+# VS Code
+# =========================
+
+.vscode/
+*.code-workspace
+
+# =========================
+# IntelliJ / JetBrains
+# =========================
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# =========================
+# macOS
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =========================
+# Windows
+# =========================
+
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+
+# =========================
+# Linux / Editors
+# =========================
+
+*~
+*.swp
+*.swo
+*.bak
+
+# =========================
+# Environment / secrets
+# =========================
+
+.env
+.env.*
+*.pem
+*.key
+
+# =========================
+# Logs
+# =========================
+
+*.log
