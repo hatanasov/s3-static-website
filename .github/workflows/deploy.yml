@@ -1,7 +1,8 @@
-name: Deploy aws infrastructure
+name: Terraform plan
 
 on:
   workflow_dispatch:
+
   pull_request:
     # Sequence of patterns matched against refs/heads
     branches:
@@ -10,18 +11,50 @@ on:
 # Need ID token write permission to use OIDC
 permissions:
   id-token: write
+  contents: read
 
 
 jobs:
   run_job_with_aws:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: examples/s3-only
+
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: "1.16.0"
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
-          role-to-assume: <Role ARN you created in step 2>
-          aws-region: <AWS Region you want to use>
-      - name: Additional steps
+          role-to-assume: ${{secrets.AWS_ROLE_ARN}}
+          aws-region: ${{vars.AWS_REGION}}
+          role-skip-session-tagging: true
+
+      - name: Assume second role
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          aws-region: ${{vars.AWS_REGION}}
+          role-to-assume: ${{secrets.AWS_DEV_ROLE_ARN}}
+          role-chaining: true
+          role-skip-session-tagging: true
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init
         run: |
-          # Your commands that require AWS credentials
-          aws sts get-caller-identity
+          terraform init \
+            -input=false 
+
+      - name: Terraform plan
+        run: |
+          terraform plan \
+            -input=false \
