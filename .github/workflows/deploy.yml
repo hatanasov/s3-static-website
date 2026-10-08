@@ -1,0 +1,27 @@
+name: Deploy aws infrastructure
+
+on:
+  workflow_dispatch:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - main
+
+# Need ID token write permission to use OIDC
+permissions:
+  id-token: write
+
+
+jobs:
+  run_job_with_aws:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{secrets.AWS_ROLE_ARN}}
+          aws-region: ${{vars.AWS_REGION}}
+      - name: Additional steps
+        run: |
+          # Your commands that require AWS credentials
+          aws sts get-caller-identity
