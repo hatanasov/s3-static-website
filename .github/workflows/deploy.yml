@@ -36,25 +36,7 @@ jobs:
         with:
           role-to-assume: ${{secrets.AWS_ROLE_ARN}}
           aws-region: ${{vars.AWS_REGION}}
-          role-skip-session-tagging: true
-
-      - name: Assume second role
-        uses: aws-actions/configure-aws-credentials@v6.3.0
-        with:
-          aws-region: ${{vars.AWS_REGION}}
-          role-to-assume: ${{secrets.AWS_DEV_ROLE_ARN}}
-          role-chaining: true
-          role-skip-session-tagging: true
-
-      - name: Terraform fmt
-        run: terraform fmt -check -recursive
-
-      - name: Terraform init
-        run: |
-          terraform init \
-            -input=false 
-
-      - name: Terraform plan
+      - name: Additional steps
         run: |
           terraform plan \
             -input=false \
