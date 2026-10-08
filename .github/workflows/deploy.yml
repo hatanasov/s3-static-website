@@ -19,8 +19,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
-          role-to-assume: <Role ARN you created in step 2>
-          aws-region: <AWS Region you want to use>
+          role-to-assume: ${{secrets.AWS_ROLE_ARN}}
+          aws-region: ${{vars.AWS_REGION}}
       - name: Additional steps
         run: |
           # Your commands that require AWS credentials
