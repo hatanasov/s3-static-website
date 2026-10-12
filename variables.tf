@@ -105,3 +105,15 @@ variable "tags" {
   description = "A map of key-value tags to apply to all AWS resources created by this module."
   default     = {}
 }
+
+variable "certificate_validation_enabled" {
+  type = bool
+  description = "Enable certificate validation via r53 or not"
+  default = true
+}
+
+variable "create_website_record" {
+  type = bool
+  description = "Enable A record creation validation for the static website"
+  default = true
+}

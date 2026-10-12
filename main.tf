@@ -240,7 +240,7 @@ resource "aws_acm_certificate" "this" {
 # Requirements: 4.3
 
 resource "aws_route53_record" "acm_validation" {
-  for_each = local.create_acm_validation ? {
+  for_each = local.create_acm_validation && var.certificate_validation_enabled ? {
     for dvo in aws_acm_certificate.this[0].domain_validation_options : dvo.domain_name => dvo
   } : {}
 
@@ -271,7 +271,7 @@ resource "aws_acm_certificate_validation" "this" {
 # Requirements: 5.2–5.6
 
 resource "aws_route53_record" "website" {
-  count = local.zone_available ? 1 : 0
+  count = local.zone_available && var.create_website_record ? 1 : 0
 
   zone_id = local.effective_zone_id
   name    = var.domain_name

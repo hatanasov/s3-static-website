@@ -30,7 +30,7 @@ module "s3_static_website" {
   price_class            = "PriceClass_100"
   create_acm_certificate = true
   domain_name            = "example.com"
-  cloudfront_aliases     = ["example.com", "www.example.com"]
+  cloudfront_aliases     = ["www.example.com", "dev.example.com"]
   create_route53_zone    = true
 
   tags = {
