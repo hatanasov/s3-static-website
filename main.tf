@@ -279,7 +279,7 @@ resource "aws_route53_record" "website" {
   type    = "A"
 
   alias {
-    name                   = var.enable_cloudfront ? aws_cloudfront_distribution.this[0].domain_name : aws_s3_bucket_website_configuration.this.website_endpoint
+    name                   = var.enable_cloudfront ? aws_cloudfront_distribution.this[0].domain_name : aws_s3_bucket_website_configuration.this[0].website_endpoint
     zone_id                = var.enable_cloudfront ? aws_cloudfront_distribution.this[0].hosted_zone_id : aws_s3_bucket.this.hosted_zone_id
     evaluate_target_health = false
   }
