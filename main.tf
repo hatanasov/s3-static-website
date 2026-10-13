@@ -183,6 +183,14 @@ resource "aws_cloudfront_distribution" "this" {
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
 
+    dynamic "function_association"  {
+      for_each = var.cloudfront_function
+      content {
+        event_type = function_association.value["event_type"]
+        function_arn = function_association.value["function_arn"]
+      }
+    }
+
     forwarded_values {
       query_string = false
       cookies {
