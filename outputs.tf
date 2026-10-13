@@ -10,7 +10,7 @@ output "bucket_arn" {
 
 output "bucket_website_endpoint" {
   description = "The S3 static website endpoint URL, in the format <bucket-name>.s3-website-<region>.amazonaws.com."
-  value       = !var.enable_cloudfront ? aws_s3_bucket_website_configuration.this.website_endpoint : null
+  value       = !var.enable_cloudfront ? aws_s3_bucket_website_configuration.this[0].website_endpoint : null
 }
 
 output "cloudfront_distribution_id" {
