@@ -117,3 +117,9 @@ variable "create_website_record" {
   description = "Enable A record creation validation for the static website"
   default = true
 }
+
+variable "cloudfront_function" {
+  type = list(map(string))
+  default = []
+
+}

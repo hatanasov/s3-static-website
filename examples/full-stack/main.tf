@@ -32,6 +32,10 @@ module "s3_static_website" {
   domain_name            = "example.com"
   cloudfront_aliases     = ["www.example.com", "dev.example.com"]
   create_route53_zone    = true
+  cloudfront_function = [{
+    event_type   = "viewer-request"
+    function_arn = ""
+  }]
 
   tags = {
     Environment = "example"
