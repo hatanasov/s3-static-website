@@ -55,6 +55,7 @@ resource "aws_s3_bucket" "this" {
 # Requirements: 1.2, 1.3
 
 resource "aws_s3_bucket_website_configuration" "this" {
+  count = var.enable_cloudfront ? 0 : 1
   bucket = aws_s3_bucket.this.id
 
   index_document {
